@@ -6,7 +6,7 @@ function generateImageHtml(responseJson){
 
     imageArray.forEach(message => {
         imgHtml += `
-        <div class="item image-container">
+        <div>
             <img src="${message}" alt="random dog image">
         </div>`;
         i++
@@ -25,7 +25,6 @@ function getDogImages(userInput){
 function handleNumberSubmission() {
     $('form').on('click', '.js-submit', event => {
         event.preventDefault();
-        console.log('pressed')
         let userInput = $('#dogNum').val();
         if(userInput >= 1 && userInput <= 50) {
             getDogImages(userInput);
