@@ -1,24 +1,38 @@
 
 function generateImageHtml(responseJson){
-    return `${responseJson.message[0]}`
+    const imageArray = responseJson.message;
+    let imgHtml = '';
+    let i = 0;
 
+    imageArray.forEach(message => {
+        imgHtml += `
+        <div class="item image-container">
+            <img src="${message}" alt="random dog image">
+        </div>`;
+        i++
+    });
+
+    return imgHtml;
 }
 
-function getDogImages(){
-    let userInput = $('#dogNum').val();
-    fetch(`https://dog.ceo/api/breeds/image/random/${userInput}`)
-    .then(response => response.json())
-    .then(responseJson => console.log(responseJson))
-    .catch(error => alert('Something went wrong. Try again later.'))
-    alert(responseJson.length)
+function getDogImages(userInput){
+        fetch(`https://dog.ceo/api/breeds/image/random/${userInput}`)
+        .then(response => response.json())
+        .then(responseJson => $('.js-image-holder').html(generateImageHtml(responseJson)))
+        .catch(error => alert('Something went wrong. Try again later.'))
 }
 
 function handleNumberSubmission() {
     $('form').on('click', '.js-submit', event => {
         event.preventDefault();
         console.log('pressed')
-        getDogImages();
-        alert(generateImageHtml());
+        let userInput = $('#dogNum').val();
+        if(userInput >= 1 && userInput <= 50) {
+            getDogImages(userInput);
+        }
+        else {
+            alert("Please select a number between 1 and 50")
+        }
     })
 }
 
