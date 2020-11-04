@@ -1,6 +1,7 @@
 
-function generateImageHtml(responseJson){
+function generateImageHtml(responseJson) {
     const imageArray = responseJson.message;
+    console.log(imageArray)
     let imgHtml = '';
     let i = 0;
 
@@ -12,10 +13,11 @@ function generateImageHtml(responseJson){
         i++
     });
 
+    $('.js-image-holder').removeClass('hidden')
     return imgHtml;
 }
 
-function getDogImages(userInput){
+function getDogImages(userInput) {
         fetch(`https://dog.ceo/api/breeds/image/random/${userInput}`)
         .then(response => response.json())
         .then(responseJson => $('.js-image-holder').html(generateImageHtml(responseJson)))
